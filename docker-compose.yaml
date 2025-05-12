@@ -14,12 +14,16 @@ x-airflow-common:
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     AIRFLOW__CORE__TEST_CONNECTION: 'Enabled'
+    AIRFLOW__WEBSERVER__SECRET_KEY: 1
+    AIRFLOW__WEBSERVER__SECRET_KEY_CMD: 1
+    AIRFLOW__WEBSERVER__SECRET_KEY_SECRET: 1
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -109,6 +113,7 @@ services:
         condition: service_completed_successfully
     volumes:
       - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
 
   airflow-triggerer:
     <<: *airflow-common

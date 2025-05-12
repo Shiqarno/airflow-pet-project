@@ -1,0 +1,5 @@
+id,date,amount,comment
+1,2023-10-01,100.50,"Payment for services"
+2,2023-10-02,200.75,"Refund for overpayment"
+3,2023-10-03,150.00,"Payment for goods"
+4,2023-10-04,300.00,"Payment for services"
