@@ -174,3 +174,7 @@ cython_debug/
 .pypirc
 
 logs/
+
+# dbt
+.dbt/dbt_packages/
+.dbt/.user.yml

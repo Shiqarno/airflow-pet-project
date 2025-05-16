@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: csv_to_postgres_model
+    description: "Staging table for transaction CSV"
+    columns:
+      - name: id
+        description: "Unique identifier"
+        tests:
+          - not_null
+          - unique
+
+      - name: date
+        description: "Timestamp of transaction"
+        tests:
+          - not_null
+
+      - name: amount
+        description: "Transaction amount"
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1000000
+
+      - name: comment
+        description: "Optional comment"
+        tests: []

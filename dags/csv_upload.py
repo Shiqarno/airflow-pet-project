@@ -5,16 +5,16 @@ from datetime import datetime
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.hooks.base import BaseHook
+from airflow_dbt.operators.dbt_operator import DbtRunOperator, DbtTestOperator
 
 import pandas as pd
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, Float, Text, TIMESTAMP
-
 
 def upload_csv_to_postgres_via_airflow(
     table_name: str,
     folder_path: str,
     postgres_conn_id: str = "postgres_default"
-):
+):    
     # 1. Get connection from Airflow
     conn = BaseHook.get_connection(postgres_conn_id)
     db_url = f"postgresql+psycopg2://{conn.login}:{conn.password}@{conn.host}:{conn.port}/{conn.schema}"

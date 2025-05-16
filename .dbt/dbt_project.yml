@@ -1,0 +1,8 @@
+name: 'csv_to_postgres_project'
+version: '1.0'
+profile: 'default'
+
+models:
+  csv_to_postgres_model:
+    staging:
+      materialized: view
